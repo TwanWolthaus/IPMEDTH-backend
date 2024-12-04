@@ -11,4 +11,17 @@ class Exercise extends Model
         'description',
         'category'
     ];
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'category' => 'required|string',
+        ]);
+
+        Data::create($validated);
+
+        return response()->json(['message' => 'Data added successfully!'], 201);
+    }
 }
