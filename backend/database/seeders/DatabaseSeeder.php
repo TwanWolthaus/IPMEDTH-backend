@@ -13,11 +13,15 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        DB::table('dummy')->insert([
-            ['name' => 'John Doe', 'age' => 25],
-            ['name' => 'Jane Smith', 'age' => 30],
-            ['name' => 'Alice Johnson', 'age' => 22],
+        $this->call([
+            ExerciseSeeder::class
         ]);
+        
+        // DB::table('dummy')->insert([
+        //     ['name' => 'John Doe', 'age' => 25],
+        //     ['name' => 'Jane Smith', 'age' => 30],
+        //     ['name' => 'Alice Johnson', 'age' => 22],
+        // ]);
 
     }
 }
