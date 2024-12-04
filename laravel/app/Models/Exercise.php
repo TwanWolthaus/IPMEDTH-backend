@@ -20,8 +20,8 @@ class Exercise extends Model
             'category' => 'required|string',
         ]);
 
-        Data::create($validated);
+        Exercise::create($validated);
 
-        return response()->json(['message' => 'Data added successfully!'], 201);
+        return response()->json(['message' => 'Exercise added successfully!'], 201);
     }
 }

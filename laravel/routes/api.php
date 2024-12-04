@@ -9,4 +9,4 @@ Route::get('/exercises', [ExerciseController::class, 'index']);
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
-Route::post('/add-data', [DataController::class, 'store']);
+Route::post('/add-data', [ExerciseController::class, 'store']);
