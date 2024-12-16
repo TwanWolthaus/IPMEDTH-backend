@@ -13,6 +13,6 @@ class Requirement extends Model
 
     public function tools()
     {
-        return $this->hasMany(Tool::class);
+        return $this->hasOne(Tool::class);
     }
 }

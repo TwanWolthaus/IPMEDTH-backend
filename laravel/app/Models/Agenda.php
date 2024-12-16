@@ -15,4 +15,9 @@ class Agenda extends Model
 	{
     	return $this->belongsTo(Team::class);
 	}
+
+    public function exercises()
+    {
+        return $this->belongsToMany(Exercise::class, 'training');
+    }
 }
