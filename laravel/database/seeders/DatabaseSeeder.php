@@ -7,21 +7,37 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
+
     public function run(): void
     {
 
         $this->call([
-            ExerciseSeeder::class
+
+            // seed tables with no FK
+            PermissionSeeder::class,
+            ToolSeeder::class,
+            CategorySeeder::class,
+            LocationSeeder::class,
+            TeamSeeder::class,
         ]);
-        
-        // DB::table('dummy')->insert([
-        //     ['name' => 'John Doe', 'age' => 25],
-        //     ['name' => 'Jane Smith', 'age' => 30],
-        //     ['name' => 'Alice Johnson', 'age' => 22],
-        // ]);
+
+        $this->call([
+
+            // seed tables with FK
+            ExerciseSeeder::class,
+            UserSeeder::class,
+            AgendaSeeder::class,
+            SkillSeeder::class,
+        ]);
+
+        $this->call([
+
+            // seed link tables
+            TrainingSeeder::class,
+            TrainingTrainerSeeder::class,
+            RequirementSeeder::class,
+            ExerciseSkillSeeder::class,
+        ]);
 
     }
 }
