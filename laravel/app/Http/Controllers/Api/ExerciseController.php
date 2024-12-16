@@ -15,7 +15,15 @@ class ExerciseController extends Controller
 
     public function show(Exercise $id)
     {
-        return $id;
+        $exercise = clone $id;
+
+        $skills = (clone $id)->skills;
+        $categories = (clone $id)->skills->pluck('category')->unique('id')->values();
+
+        $exercise->categories = $categories;
+        $exercise->skills = $skills;
+
+        return $exercise;
     }
 
     public function store(Request $request)
