@@ -13,9 +13,9 @@ class ExerciseController extends Controller
         return Exercise::all();
     }
 
-    public function show(Exercise $exercise)
+    public function show(Exercise $id)
     {
-        return $exercise;
+        return $id;
     }
 
     public function store(Request $request)
