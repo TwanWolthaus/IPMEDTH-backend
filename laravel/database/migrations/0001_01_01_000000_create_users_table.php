@@ -9,10 +9,10 @@ return new class extends Migration
 
     public function up(): void
     {
-        Schema::create('user', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
 
             $table->id();
-            $table->foreignId('permission_id')->nullable()->constrained('permission')->onDelete('set null');
+            $table->foreignId('permission_id')->nullable()->constrained('permissions')->onDelete('set null');
             $table->boolean('disabled');
             $table->char('first_name', 20);
             $table->char('middle_name', 10)->nullable();

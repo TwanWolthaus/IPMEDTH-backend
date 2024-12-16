@@ -9,12 +9,12 @@ return new class extends Migration
 
     public function up(): void
     {
-        Schema::create('training', function (Blueprint $table) {
+        Schema::create('trainings', function (Blueprint $table) {
 
             $table->id();
-            $table->foreignId('exercise_id')->constrained('exercise')->onDelete('cascade');
-            $table->foreignId('agenda_id')->constrained('agenda')->onDelete('cascade');
-            $table->foreignId('location_id')->nullable()->constrained('location')->onDelete('set null');
+            $table->foreignId('exercise_id')->constrained('exercises')->onDelete('cascade');
+            $table->foreignId('agenda_id')->constrained('agendas')->onDelete('cascade');
+            $table->foreignId('location_id')->nullable()->constrained('locations')->onDelete('set null');
             $table->dateTime('start_time', 0);
             $table->dateTime('end_time', 0)->nullable();
             $table->longText('note');

@@ -11,7 +11,7 @@ class ExerciseSeeder extends Seeder
 
     public function run(): void
     {
-        DB::table('exercise')->insert([
+        DB::table('exercises')->insert([
             [
                 'name' => "Luister Naar De Hand",
                 'duration' => 5,

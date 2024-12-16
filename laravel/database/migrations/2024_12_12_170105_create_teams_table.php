@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('agenda', function (Blueprint $table) {
+        Schema::create('teams', function (Blueprint $table) {
 
             $table->id();
-            $table->foreignId('team_id')->nullable()->constrained('team')->onDelete('set null');
             $table->char('name', 20);
+            $table->char('level', 20);
+            $table->smallInteger('minimum_age')->unsigned();
+            $table->smallInteger('maximum_age')->unsigned()->nullable();
 
             $table->timestamps();
         });
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('agenda');
+        Schema::dropIfExists('team');
     }
 };

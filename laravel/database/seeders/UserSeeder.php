@@ -11,7 +11,7 @@ class UserSeeder extends Seeder
 
     public function run(): void
     {
-        DB::table('user')->insert([
+        DB::table('users')->insert([
             [
                 'permission_id' => 1,
                 'disabled' => false,

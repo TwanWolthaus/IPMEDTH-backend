@@ -13,11 +13,11 @@ class PermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('permission')->insert([
+        DB::table('permissions')->insert([
             [
                 'name' => 'Admin',
-                'can_alter_agenda' => true,
-                'can_alter_session' => true,
+                'can_alter_agendas' => true,
+                'can_alter_trainings' => true,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

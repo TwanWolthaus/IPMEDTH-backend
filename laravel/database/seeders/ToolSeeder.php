@@ -13,7 +13,7 @@ class ToolSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('tool')->insert([
+        DB::table('tools')->insert([
             [
                 'name' => 'Fluitje',
                 'created_at' => now(),

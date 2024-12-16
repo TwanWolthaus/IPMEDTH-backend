@@ -12,7 +12,7 @@ class SkillSeeder extends Seeder
 
     public function getCategoryId($name): int
     {
-        return DB::table('category')->where('name', $name)->value('id');
+        return DB::table('categories')->where('name', $name)->value('id');
     }
 
     public function run(): void
@@ -35,7 +35,7 @@ class SkillSeeder extends Seeder
 
             foreach ($skillNames as $skillName) {
 
-                DB::table('skill')->insert([
+                DB::table('skills')->insert([
                     'category_id' => $categoryId,
                     'name' => $skillName,
                     'created_at' => now(),

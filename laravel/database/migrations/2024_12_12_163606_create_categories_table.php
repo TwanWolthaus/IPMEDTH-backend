@@ -6,22 +6,25 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
-        Schema::create('permission', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
 
             $table->id();
             $table->char('name', 20);
-            $table->boolean('can_alter_agenda');
-            $table->boolean('can_alter_session');
 
             $table->timestamps();
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
-        Schema::dropIfExists('permission');
+        Schema::dropIfExists('category');
     }
 };

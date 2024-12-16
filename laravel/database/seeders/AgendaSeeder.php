@@ -11,7 +11,7 @@ class AgendaSeeder extends Seeder
 
     public function run(): void
     {
-        DB::table('agenda')->insert([
+        DB::table('agendas')->insert([
             [
                 'team_id' => null,
                 'name' => 'Algemene agenda',

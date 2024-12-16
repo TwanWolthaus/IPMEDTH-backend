@@ -13,7 +13,7 @@ class LocationSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('location')->insert([
+        DB::table('locations')->insert([
             [
                 'name' => 'De Zijl',
                 'adress' => 'Paramaribostraat 66, Leiden',

@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tool', function (Blueprint $table) {
+        Schema::create('requirements', function (Blueprint $table) {
 
             $table->id();
-            $table->char('name', 20);
+            $table->foreignId('exercise_id')->constrained('exercises')->onDelete('cascade');
+            $table->foreignId('tool_id')->constrained('tools')->onDelete('cascade');
+            $table->tinyInteger('amount');
 
             $table->timestamps();
         });
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tool');
+        Schema::dropIfExists('requirement');
     }
 };
