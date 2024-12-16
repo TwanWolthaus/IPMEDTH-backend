@@ -13,6 +13,11 @@ class ExerciseController extends Controller
         return Exercise::all();
     }
 
+    public function show(Exercise $exercise)
+    {
+        return $exercise;
+    }
+
     public function store(Request $request)
     {
         // Validate the request data
