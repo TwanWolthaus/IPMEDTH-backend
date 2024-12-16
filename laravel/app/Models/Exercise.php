@@ -12,16 +12,18 @@ class Exercise extends Model
         'category'
     ];
 
-    public function store(Request $request)
+    public function skills()
     {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'category' => 'required|string',
-        ]);
+        return $this->belongsToMany(Skill::class, 'exercises_skills');
+    }
 
-        Exercise::create($validated);
+    public function requirements()
+    {
+        return $this->hasMany(Requirement::class);
+    }
 
-        return response()->json(['message' => 'Exercise added successfully!'], 201);
+    public function trainings()
+    {
+        return $this->belongsToMany(Training::class);
     }
 }
