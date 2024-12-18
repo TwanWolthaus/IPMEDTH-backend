@@ -9,9 +9,21 @@ use Illuminate\Http\Request;
 class ExerciseController extends Controller
 {
     public function index()
-    {
-        return Exercise::all();
-    }
+{
+    // Assuming $exercises is the collection of Exercise instances
+    $exercises = Exercise::all()->map(function ($exercise) {
+        $skills = (clone $exercise)->skills;
+        $categories = (clone $exercise)->skills->pluck('category')->unique('id')->values();
+
+        $exercise->categories = $categories;
+        $exercise->skills = $skills;
+
+        return $exercise;
+    });
+
+    return $exercises;
+}
+
 
     public function show(Exercise $id)
     {
@@ -41,4 +53,16 @@ class ExerciseController extends Controller
         // Return a success response with the created exercise data
         return response()->json(['message' => 'Exercise added successfully!', 'exercise' => $exercise], 201);
     }
+    
+    public function search(Request $request)
+    {
+    $query = $request->input('q');
+
+    $results = Exercise::where('name', 'LIKE', "%{$query}%")
+                ->orWhere('description', 'LIKE', "%{$query}%")
+                ->get();
+
+    return response()->json($results);
+    }
+    
 }

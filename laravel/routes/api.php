@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\DataController;
  
 Route::get('/exercises', [ExerciseController::class, 'index']);
 Route::get('/exercises/{id}', [ExerciseController::class, 'show']);
+Route::get('/exercises/search', [ExerciseController::class, 'search']);
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');

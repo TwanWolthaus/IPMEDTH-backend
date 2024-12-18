@@ -9,7 +9,7 @@ use App\Models\Skill;
 class Exercise extends Model
 {
     protected $fillable = [
-        'title',
+        'name',
         'description',
         'category'
     ];
