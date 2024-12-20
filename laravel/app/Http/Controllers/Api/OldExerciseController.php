@@ -10,7 +10,7 @@ use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\Enums\FilterOperator;
 
-class ExerciseController extends Controller
+class OldExerciseController extends Controller
 {
 
     public function index(Request $request)
@@ -24,7 +24,7 @@ class ExerciseController extends Controller
                 AllowedFilter::scope('categories', 'filterByCategory'),
                 AllowedFilter::scope('duration_between'),
                 AllowedFilter::scope('water_exercise'),
-            
+
                 ])
             // Allow sorting by name
             ->allowedSorts(['name'])
@@ -32,23 +32,23 @@ class ExerciseController extends Controller
             ->with(['skills'])
             // Paginate results
             ->paginate($request->get('perPage', 15));
-    
+
         // Attach categories for each exercise
         $exercises->getCollection()->transform(function ($exercise) {
             // Get the unique categories associated with each exercise
             $categories = $exercise->skills->pluck('category')->unique('id')->values();
-    
+
             // Add categories to the exercise object
             $exercise->categories = $categories;
-    
+
             return $exercise;
         });
-    
+
         // Return the paginated response with categories
         return response()->json($exercises);
     }
-    
-    
+
+
 
 
 
@@ -80,7 +80,7 @@ class ExerciseController extends Controller
         // Return a success response with the created exercise data
         return response()->json(['message' => 'Exercise added successfully!', 'exercise' => $exercise], 201);
     }
-    
+
     public function search(Request $request)
     {
     $query = $request->input('q');
@@ -91,5 +91,5 @@ class ExerciseController extends Controller
 
     return response()->json($results);
     }
-    
+
 }
