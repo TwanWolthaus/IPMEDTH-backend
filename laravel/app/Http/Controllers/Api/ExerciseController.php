@@ -8,61 +8,10 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\Enums\FilterOperator;
 
 class ExerciseController extends Controller
 {
-//     public function index()
-// {
-//     $exercises = Exercise::whereHas('skills', function (Builder $query) {
-//         $query->where('name', 'like', 'Spieren');
-//     })->get();
-    
-//     // Assuming $exercises is the collection of Exercise instances
-//     $exercises->map(function ($exercise) {
-//         $skills = (clone $exercise)->skills;
-//         $categories = (clone $exercise)->skills->pluck('category')->unique('id')->values();
-
-//         $exercise->categories = $categories;
-//         $exercise->skills = $skills;
-
-//         return $exercise;
-//     });
-    
-
-//     return $exercises;
-// }
-
-    // public function index(Request $request){
-
-    //         // Assuming $exercises is the collection of Exercise instances
-    // $exercises = Exercise::all()->map(function ($exercise) {
-    //     $skills = (clone $exercise)->skills;
-    //     $categories = (clone $exercise)->skills->pluck('category')->unique('id')->values();
-
-    //     $exercise->categories = $categories;
-    //     $exercise->skills = $skills;
-
-    //     return $exercise;
-    // });
-
-    //     $exercises = QueryBuilder::for(Exercise::all()->map(function ($exercise) {
-    //         $skills = (clone $exercise)->skills;
-    //         $categories = (clone $exercise)->skills->pluck('category')->unique('id')->values();
-    
-    //         $exercise->categories = $categories;
-    //         $exercise->skills = $skills;
-    
-    //         return $exercise;
-    //     }))
-    //     ->allowedFilters(['name'])
-    //     ->allowedSorts('name')
-    //     ->paginate($request->get('perPage', 15));
-    //     return response()->json($exercises);
-        
-    // }
-
-
-
 
     public function index(Request $request)
     {
@@ -71,8 +20,12 @@ class ExerciseController extends Controller
             // Allow filtering by name and skill
             ->allowedFilters([
                 'name', // Allow filtering by name
-                AllowedFilter::scope('skills', 'filterBySkill'), // Allow filtering by skills (with multiple skills via variadic params)
-            ])
+                AllowedFilter::scope('skills', 'filterBySkill'), // Allow filtering by skills
+                AllowedFilter::scope('categories', 'filterByCategory'),
+                AllowedFilter::scope('duration_between'),
+                AllowedFilter::scope('water_exercise'),
+            
+                ])
             // Allow sorting by name
             ->allowedSorts(['name'])
             // Eager load relationships, assuming each exercise has skills
@@ -80,7 +33,18 @@ class ExerciseController extends Controller
             // Paginate results
             ->paginate($request->get('perPage', 15));
     
-        // Return the paginated response
+        // Attach categories for each exercise
+        $exercises->getCollection()->transform(function ($exercise) {
+            // Get the unique categories associated with each exercise
+            $categories = $exercise->skills->pluck('category')->unique('id')->values();
+    
+            // Add categories to the exercise object
+            $exercise->categories = $categories;
+    
+            return $exercise;
+        });
+    
+        // Return the paginated response with categories
         return response()->json($exercises);
     }
     
