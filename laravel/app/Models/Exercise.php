@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 use App\Models\Skill;
 
@@ -31,15 +32,14 @@ class Exercise extends Model
 
    
 
-    public function scopeFilterBySkill($query, $skills)
-    {
-        $skillsArray = explode(',', $skills); // Split the comma-separated skills into an array
-        
-        // Use whereHas to filter exercises that have any of the skills in the list
-        return $query->whereHas('skills', function ($q) use ($skillsArray) {
-            $q->whereIn('name', $skillsArray); // Match exercises with any of the skills in the list
-        });
-    }
+   public function scopeFilterBySkill(Builder $query, ...$skills)
+{
+    // Assuming skills are passed as an array or as individual arguments
+    return $query->whereHas('skills', function ($q) use ($skills) {
+        $q->whereIn('name', $skills);
+    });
+}
+
     
 
 
