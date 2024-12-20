@@ -6,11 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Training extends Model
 {
-    public function exercise()
-    {
-        return $this->hasOne(Exercise::class);
-    }
-
     public function location()
     {
         return $this->hasOne(Location::class);
@@ -21,8 +16,8 @@ class Training extends Model
         return $this->belongsTo(Agenda::class);
     }
 
-    public function users()
+    public function exercises()
     {
-        return $this->belongsToMany(User::class, 'trainings_trainers');
+        return $this->belongsToMany(Skill::class, 'trainings_exercises');
     }
 }

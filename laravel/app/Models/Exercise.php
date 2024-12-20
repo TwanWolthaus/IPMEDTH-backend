@@ -27,10 +27,10 @@ class Exercise extends Model
 
     public function trainings()
     {
-        return $this->belongsToMany(Training::class);
+        return $this->belongsToMany(Training::class, 'training_exercise');
     }
 
-   
+
 
    public function scopeFilterBySkill(Builder $query, ...$skills)
     {
@@ -47,12 +47,12 @@ class Exercise extends Model
             $q->whereIn('name', $categories); // Match exercises with any of the provided category names
         });
     }
-    
+
     public function scopeDurationBetween(Builder $query, $duration): Builder
     {
         // Split the comma-separated range into two values
         $duration = explode(':', $duration);
-    
+
         // Apply the range filter
         return $query->whereBetween('duration', $duration);
     }

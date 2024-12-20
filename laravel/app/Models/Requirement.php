@@ -6,13 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Requirement extends Model
 {
-    public function exercises()
+    public function exercise()
     {
-        return $this->belongsToMany(Exercise::class);
-    }
-
-    public function tools()
-    {
-        return $this->hasOne(Tool::class);
+        return $this->belongsTo(Exercise::class);
     }
 }
