@@ -15,7 +15,6 @@ class DatabaseSeeder extends Seeder
 
             // seed tables with no FK
             PermissionSeeder::class,
-            ToolSeeder::class,
             CategorySeeder::class,
             LocationSeeder::class,
             TeamSeeder::class,
@@ -34,9 +33,9 @@ class DatabaseSeeder extends Seeder
 
             // seed link tables
             TrainingSeeder::class,
-            TrainingTrainerSeeder::class,
             RequirementSeeder::class,
             ExerciseSkillSeeder::class,
+            TrainingExerciseSeeder::class,
         ]);
 
     }

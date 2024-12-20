@@ -17,21 +17,21 @@ class RequirementSeeder extends Seeder
 
     public function run(): void
     {
-        $exerciseOnTool = [
-            'Wedstrijdje Onderduwen'        => [['Bal (per groep)', 1, true], ['Fluitje', 1, false]],
-            'Lucht Happen En Ondertrekken'  => [['Bal (per persoon)', 2, false]],
+        $requirementOnExercise = [
+            'Hete Aardappel' => [['1 Bal Per Groep', 'false'], ['Fluitje', 'false']],
+            'Luister Naar De Hand' => [['Fluitje', 'false'], ['Bal Per Paar', 'true']],
         ];
 
-        foreach ($exerciseOnTool as $exerciseName => $tools) {
+        foreach ($requirementOnExercise as $exerciseName => $reqs) {
 
-            foreach ($tools as $tool) {
+            foreach ($reqs as $req) {
 
                 DB::table('requirements')->insert([
                     [
                         'exercise_id' =>    $this->getIdByName('exercises', $exerciseName),
-                        'tool_id' =>        $this->getIdByName('tools', $tool[0]),
-                        'amount' =>         $tool[1],
-                        'is_optional' =>    $tool[2],
+                        'description' =>    $req[0],
+                        'amount' =>         1,
+                        'is_optional' =>    $req[1],
                         'created_at' => now(),
                         'updated_at' => now(),
                     ],
