@@ -20,7 +20,17 @@ class ToolSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Bal',
+                'name' => 'Bal (per groep)',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Bal (per paar)',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Bal (per persoon)',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

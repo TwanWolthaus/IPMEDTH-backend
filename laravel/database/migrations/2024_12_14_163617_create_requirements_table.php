@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('exercise_id')->constrained('exercises')->onDelete('cascade');
             $table->foreignId('tool_id')->constrained('tools')->onDelete('cascade');
             $table->tinyInteger('amount');
+            $table->boolean('is_optional');
 
             $table->timestamps();
         });
