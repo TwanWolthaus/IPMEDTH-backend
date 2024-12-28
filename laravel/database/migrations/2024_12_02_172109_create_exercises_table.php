@@ -12,7 +12,7 @@ return new class extends Migration
         Schema::create('exercises', function (Blueprint $table) {
 
             $table->id();
-            $table->char('name', 20);
+            $table->char('name', 20)->unique();
             $table->smallInteger('duration')->unsigned();
             $table->tinyInteger('minimum_age')->unsigned();
             $table->tinyInteger('maximum_age')->unsigned()->nullable();

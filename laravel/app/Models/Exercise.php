@@ -11,13 +11,18 @@ class Exercise extends Model
 {
     protected $fillable = [
         'name',
+        'duration',
+        'minimum_age',
+        'maximum_age',
+        'minimum_players',
+        'water_exercise',
         'description',
-        'category'
+        'procedure'
     ];
 
     public function skills()
     {
-        return $this->belongsToMany(Skill::class, 'exercises_skills');
+        return $this->belongsToMany(Skill::class, 'exercises_skills', 'exercise_id', 'skill_id');
     }
 
     public function requirements()
