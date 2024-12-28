@@ -14,6 +14,7 @@ use Spatie\QueryBuilder\Enums\FilterOperator;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 
 class ExerciseController extends Controller
@@ -33,6 +34,7 @@ class ExerciseController extends Controller
                     $query->whereIn('skills.id', $ids);
                 });
             })
+
             ->when($request->has('filter.categories'), function ($query) use ($request) {
 
                 $query->with('skills.category');
@@ -57,7 +59,13 @@ class ExerciseController extends Controller
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $request = $request->all();
+
+        if (isset($request['name'])) {
+            $request['name'] = ucwords($request['name']);
+        }
+
+        $validator = Validator::make($request, [
             'name' =>               'required|string|max:40',
             'duration' =>           'required|integer|min:1|max:512',
             'minimum_age' =>        'required|integer|min:1|max:255',
