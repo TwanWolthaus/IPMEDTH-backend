@@ -107,7 +107,7 @@ class ExerciseController extends Controller
         {
             $exercise = Exercise::findOrFail($id);
         }
-        catch (ModelNotFoundException $e)
+        catch (\Exception $e)
         {
             return response()->json([
                 'success' => false,
