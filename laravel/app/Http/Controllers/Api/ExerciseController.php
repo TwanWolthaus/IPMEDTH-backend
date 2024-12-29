@@ -121,16 +121,79 @@ class ExerciseController extends Controller
 
     public function edit(string $id)
     {
-        //
+        // Nah not needed
     }
+
 
     public function update(Request $request, string $id)
     {
-        //
+        $request = $request->all();
+
+        $validator = Validator::make($request, [
+            'name' =>               'string|max:40',
+            'duration' =>           'integer|min:1|max:512',
+            'minimum_age' =>        'integer|min:1|max:255',
+            'maximum_age' =>        'integer|min:1|max:255|nullable',
+            'minimum_players' =>    'integer|min:0|max:255',
+            'water_exercise' =>     'boolean',
+            'description' =>        'string|nullable',
+            'procedure' =>          'string|nullable',
+            'image_path' =>         'string|max:255|nullable',
+            'video_path' =>         'string|max:255|nullable',
+            'image_url' =>          'string|max:255|url|nullable',
+            'video_url' =>          'string|max:255|url|nullable',
+        ]);
+
+        try
+        {
+            $validated = $validator->validated();
+        }
+        catch (\Exception $e)
+        {
+            return response()->json([
+                'success' => false,
+                'message' => 'Invallid update params',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+
+        $exercise = Exercise::find($id);
+
+        foreach ($validated as $key => $val) {
+            $exercise->{$key} = $val;
+        }
+
+        $exercise->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Exercise updated successfully.',
+            'data' => $exercise
+        ], 200);
     }
+
 
     public function destroy(string $id)
     {
-        //
+        try
+        {
+            $exercise = Exercise::findOrFail($id);
+        }
+        catch (\Exception $e)
+        {
+            return response()->json([
+                'success' => false,
+                'message' => 'Exercise not found',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+
+        $exercise->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Exercise updated successfully.',
+            'data' => $exercise
+        ], 200);
     }
 }
