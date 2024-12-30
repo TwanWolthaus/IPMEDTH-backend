@@ -19,11 +19,11 @@ class SkillSeeder extends Seeder
     {
 
         $skillsOnCategory = [
-            'Warming up' => ['Rekken', 'Cardio'],
+            'Warming up' => ['Rekken', 'Cardio (warming-up)'],
             'Techniek' => ['Gooien-Vangen', 'Polocrawl', 'Draai', 'Agility', 'Schieten', 'Fietsenbenen', 'Zwemtechniek'],
             'Tactiek' => ['Midvoor-Midachter', 'Manmeer-Manminder', 'Aanval', 'Verdediging', 'Heads-Up', 'Wisselen', 'Wedstrijdstress'],
             'Conditie' => ['Ademhaling', 'Spieren', 'Cardio', 'Sprint'],
-            'Cooling down' => ['Rekken'],
+            'Cooling down' => ['Afkoel-Rekken'],
             'Keeper' => [],
             'Theorie' => ['Regels', 'Handgebaren-Scheidsrechter', 'Overtredingen'],
         ];

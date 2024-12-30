@@ -15,7 +15,7 @@ return new class extends Migration
 
             $table->id();
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
-            $table->char('name', 20);
+            $table->char('name', 20)->unique();
 
             $table->timestamps();
         });
