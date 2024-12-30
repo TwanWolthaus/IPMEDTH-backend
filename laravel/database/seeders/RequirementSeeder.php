@@ -18,8 +18,8 @@ class RequirementSeeder extends Seeder
     public function run(): void
     {
         $requirementOnExercise = [
-            'Hete Aardappel' => [['1 Bal Per Groep', 'false'], ['Fluitje', 'false']],
-            'Luister Naar De Hand' => [['Fluitje', 'false'], ['Bal Per Paar', 'true']],
+            'Hete Aardappel' => [['1 Bal Per Groep', false], ['Fluitje', false]],
+            'Luister Naar De Hand' => [['Fluitje', false], ['Bal Per Paar', true]],
         ];
 
         foreach ($requirementOnExercise as $exerciseName => $reqs) {

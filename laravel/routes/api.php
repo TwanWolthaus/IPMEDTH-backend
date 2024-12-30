@@ -3,9 +3,11 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ExerciseController;
+use App\Http\Controllers\Api\RequirementController;
 use App\Http\Controllers\Api\DataController;
 
 Route::resource('exercises', ExerciseController::class)->only(['index', 'show', 'store', 'update', 'destroy']);
+Route::resource('requirements', RequirementController::class)->only(['index', 'show', 'store', 'update', 'destroy']);
 
 // Route::get('/exercises/search', [ExerciseController::class, 'search']);
 

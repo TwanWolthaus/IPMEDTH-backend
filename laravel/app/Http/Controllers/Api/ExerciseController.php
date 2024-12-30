@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Api;
+use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
-
 use App\Models\Exercise;
-use App\Http\Controllers\Controller;
+
 use Illuminate\Database\Eloquent\Builder;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -205,7 +205,7 @@ class ExerciseController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Exercise updated successfully.',
+            'message' => 'Exercise deleted successfully.',
             'data' => $exercise
         ], 200);
     }
