@@ -46,6 +46,19 @@ class ExerciseController extends Controller
                     $query->whereIn('categories.id', $ids);
                 });
             })
+
+            ->when($request->has('filter.requirements'), function ($query) use ($request) {
+
+                $query->with('requirements');
+
+                if ($request->filter['requirements'] == 'all') return;
+
+                $ids = array_map('intval', explode(',', $request->filter['requirements']));
+                $query->whereHas('requirements', function ($query) use ($ids) {
+                    $query->whereIn('requirements.id', $ids);
+                });
+            })
+
             ->get();
 
         return response()->json($exercises, 200);
