@@ -74,11 +74,30 @@ class RequirementController extends Controller
     }
 
 
-    public function show(string $id)
+    public function show(Request $request, string $id)
     {
         try
         {
-            $requirement = Requirement::findOrFail($id);
+            $requirement = Requirement::query()
+
+            ->when($request->has('incl'), function ($query) use ($request) {
+
+                $incl = explode(',', $request->get('incl'));
+                $query->with($incl);
+            });
+        }
+        catch (\Exception $e)
+        {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to build query',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+
+        try
+        {
+            $requirement =  $requirement->findOrFail($id);
         }
         catch (\Exception $e)
         {
