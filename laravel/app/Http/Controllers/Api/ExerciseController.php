@@ -99,18 +99,10 @@ class ExerciseController extends Controller
         }
         catch (\Exception $e)
         {
-            return response()->json([
-                'success' => false,
-                'message' => 'Failed to create exercise.',
-                'error' => $e->getMessage()
-            ], 500);
+            return $this->getError($e, 'Failed to create exercise', 500);
         }
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Exercise created successfully.',
-            'data' => $newExercise
-        ], 201);
+        return $this->getSuccess($newExercise, 'Exercise created successfully', 201);
     }
 
 
@@ -134,11 +126,7 @@ class ExerciseController extends Controller
         }
         catch (\Exception $e)
         {
-            return response()->json([
-                'success' => false,
-                'message' => 'Failed to build query',
-                'error' => $e->getMessage()
-            ], 500);
+            return $this->getError($e, 'Failed to biuld query', 500);
         }
 
         try
@@ -147,11 +135,7 @@ class ExerciseController extends Controller
         }
         catch (\Exception $e)
         {
-            return response()->json([
-                'success' => false,
-                'message' => 'Exercise not found',
-                'error' => $e->getMessage()
-            ], 404);
+            return $this->getError($e, 'Exercise not found', 404);
         }
 
         return response()->json($exercise, 200);
@@ -188,11 +172,7 @@ class ExerciseController extends Controller
         }
         catch (\Exception $e)
         {
-            return response()->json([
-                'success' => false,
-                'message' => 'Invallid update params',
-                'error' => $e->getMessage()
-            ], 500);
+            return $this->getError($e, 'Request params invallid', 500);
         }
 
         $exercise = Exercise::find($id);
@@ -203,11 +183,7 @@ class ExerciseController extends Controller
 
         $exercise->save();
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Exercise updated successfully.',
-            'data' => $exercise
-        ], 200);
+        return $this->getSuccess($exercise, 'Exercise created successfully', 200);
     }
 
 
@@ -219,19 +195,23 @@ class ExerciseController extends Controller
         }
         catch (\Exception $e)
         {
-            return response()->json([
-                'success' => false,
-                'message' => 'Exercise not found',
-                'error' => $e->getMessage()
-            ], 404);
+            return $this->getError($e, 'Exercise not found', 404);
         }
 
         $exercise->delete();
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Exercise deleted successfully.',
-            'data' => $exercise
-        ], 200);
+        return $this->getSuccess($exercise, 'Exercise deleted successfully', 200);
+    }
+
+
+    public function linkToSkill(string $exerciseId, string $skillId)
+    {
+        return $this->setLink(Exercise::class, $exerciseId, 'skills', $skillId, true);
+    }
+
+
+    public function unlinkSkill(string $exerciseId, string $skillId)
+    {
+        return $this->setLink(Exercise::class, $exerciseId, 'skills', $skillId, false);
     }
 }
