@@ -18,22 +18,22 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             LocationSeeder::class,
             TeamSeeder::class,
+            ExerciseSeeder::class,
         ]);
 
         $this->call([
 
             // seed tables with FK
-            ExerciseSeeder::class,
             UserSeeder::class,
             AgendaSeeder::class,
             SkillSeeder::class,
+            TrainingSeeder::class,
+            RequirementSeeder::class,
         ]);
 
         $this->call([
 
             // seed link tables
-            TrainingSeeder::class,
-            RequirementSeeder::class,
             ExerciseSkillSeeder::class,
             TrainingExerciseSeeder::class,
         ]);

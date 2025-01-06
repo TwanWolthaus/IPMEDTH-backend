@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\RequirementController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\SkillController;
 use App\Http\Controllers\Api\ExerciseSkillController;
+use App\Http\Controllers\Api\TrainingController;
 
 
 Route::resources([
@@ -16,6 +17,7 @@ Route::resources([
     'requirements' =>       RequirementController::class,
     'skills' =>             SkillController::class,
     'categories' =>         CategoryController::class,
+    'trainings' =>          TrainingController::class,
 ], ['only' => ['index', 'show', 'store', 'update', 'destroy']]);
 
 Route::post('exercises/{exercise_id}/skills/{skill_id}', [ExerciseController::class, 'linkToSkill']);

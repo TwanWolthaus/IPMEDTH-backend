@@ -6,6 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Training extends Model
 {
+    protected $fillable = [
+        'start_time',
+        'end_time',
+        'name'
+    ];
+
+
     public function location()
     {
         return $this->hasOne(Location::class);
@@ -18,6 +25,6 @@ class Training extends Model
 
     public function exercises()
     {
-        return $this->belongsToMany(Skill::class, 'trainings_exercises');
+        return $this->belongsToMany(Exercise::class, 'trainings_exercises');
     }
 }
