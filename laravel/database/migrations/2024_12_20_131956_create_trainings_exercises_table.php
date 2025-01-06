@@ -16,6 +16,8 @@ return new class extends Migration
             $table->foreignId('training_id')->constrained('trainings')->onDelete('cascade');
 
             $table->timestamps();
+
+            $table->unique(['exercise_id', 'training_id']);
         });
     }
 

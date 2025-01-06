@@ -23,6 +23,8 @@ Route::resources([
 Route::post('exercises/{exercise_id}/skills/{skill_id}', [ExerciseController::class, 'linkToSkill']);
 Route::delete('exercises/{exercise_id}/skills/{skill_id}', [ExerciseController::class, 'unlinkSkill']);
 
+Route::post('trainings/{trainingId}/exercises/{exerciseId}', [TrainingController::class, 'linkToExercise']);
+Route::delete('trainings/{trainingId}/exercises/{exerciseId}', [TrainingController::class, 'unlinkExercise']);
 
 // Route::get('/exercises/search', [ExerciseController::class, 'search']);
 

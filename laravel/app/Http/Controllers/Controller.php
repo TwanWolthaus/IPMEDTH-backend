@@ -50,6 +50,6 @@ abstract class Controller
             $instance->{$relationship}()->detach($id);
         }
 
-        return $this->getSuccess($instance, "Link on {$relationship} deleted successfully", 200);
+        return $this->getSuccess($instance, "Link on {$relationship} " . ($link ? 'created' : 'deleted') . " successfully", 200);
     }
 }

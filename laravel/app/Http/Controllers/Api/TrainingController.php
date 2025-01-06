@@ -154,4 +154,16 @@ class TrainingController extends Controller
 
         return $this->getSuccess($training, 'Training deleted successfully', 200);
     }
+
+
+    public function linkToExercise(string $trainingId, string $exerciseId)
+    {
+        return $this->setLink(Training::class, $trainingId, 'exercises', $exerciseId, true);
+    }
+
+
+    public function unlinkExercise(string $trainingId, string $exerciseId)
+    {
+        return $this->setLink(Training::class, $trainingId, 'exercises', $exerciseId, false);
+    }
 }
