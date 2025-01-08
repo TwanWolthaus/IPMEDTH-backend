@@ -21,6 +21,10 @@ class ExerciseController extends Controller
 {
     public function index(Request $request)
     {
+        // if(!$request->user() || $request->user()->cannot("viewAny", Exercise::class)) {
+        //     return response()->json("Not allowed", 403);
+        // }
+
         $exercises = Exercise::query()
 
             ->when($request->has('filter.skills'), function ($query) use ($request) {
@@ -79,30 +83,44 @@ class ExerciseController extends Controller
         }
 
         $validator = Validator::make($request, [
-            'name' =>               'required|string|max:40',
-            'duration' =>           'required|integer|min:1|max:512',
-            'minimum_age' =>        'required|integer|min:1|max:255',
-            'maximum_age' =>        'integer|min:1|max:255',
-            'minimum_players' =>    'required|integer|min:0|max:255',
-            'water_exercise' =>     'required|boolean',
-            'description' =>        'string',
-            'procedure' =>          'string',
-            'image_path' =>         'string|max:255',
-            'video_path' =>         'string|max:255',
-            'image_url' =>          'string|max:255|url',
-            'video_url' =>          'string|max:255|url',
+            'exercises.*.name' =>               'required|string|max:40',
+            'exercises.*.duration' =>           'required|integer|min:1|max:512',
+            'exercises.*.minimum_age' =>        'required|integer|min:1|max:255',
+            'exercises.*.maximum_age' =>        'nullable|integer|min:1|max:255',
+            'exercises.*.minimum_players' =>    'required|integer|min:0|max:255',
+            'exercises.*.water_exercise' =>     'required|boolean',
+            'exercises.*.description' =>        'string',
+            'exercises.*.procedure' =>          'string',
+            'exercises.*.image_path' =>         'string|max:255',
+            'exercises.*.video_path' =>         'string|max:255',
+            'exercises.*.image_url' =>          'string|max:255|url',
+            'exercises.*.video_url' =>          'string|max:255|url',
         ]);
 
         try
         {
-            $newExercise = Exercise::create($validator->validated());
+            $validated = $validator->validated();
         }
         catch (\Exception $e)
         {
             return $this->getError($e, 'Failed to create exercise', 500);
         }
 
-        return $this->getSuccess($newExercise, 'Exercise created successfully', 201);
+        $createdExercises = [];
+
+        try
+        {
+            foreach ($validated["exercises"] as $item)
+            {
+                $createdExercises[] = Exercise::create($item);
+            }
+        }
+        catch (\Exception $e)
+        {
+            return $this->getError($e, 'Failed to create exercise', 500);
+        }
+
+        return $this->getSuccess($createdExercises, 'Exercises created successfully', 201);
     }
 
 
