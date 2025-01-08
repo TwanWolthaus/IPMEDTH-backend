@@ -204,14 +204,16 @@ class ExerciseController extends Controller
     }
 
 
-    public function linkToSkill(string $exerciseId, string $skillId)
+    public function linkToSkill(string $exerciseId, string $skillIds)
     {
-        return $this->setLink(Exercise::class, $exerciseId, 'skills', $skillId, true);
+        $skillIds = array_map('intval', explode(',', $skillIds));
+        return $this->setLink(Exercise::class, $exerciseId, 'skills', $skillIds, true);
     }
 
 
-    public function unlinkSkill(string $exerciseId, string $skillId)
+    public function unlinkSkill(string $exerciseId, string $skillIds)
     {
-        return $this->setLink(Exercise::class, $exerciseId, 'skills', $skillId, false);
+        $skillIds = array_map('intval', explode(',', $skillIds));
+        return $this->setLink(Exercise::class, $exerciseId, 'skills', $skillIds, false);
     }
 }

@@ -23,7 +23,7 @@ abstract class Controller
     }
 
 
-    protected function setLink($model, string $modelId, string $relationship, string $id, bool $link)
+    protected function setLink($model, string $modelId, string $relationship, $ids, bool $link)
     {
         try
         {
@@ -37,9 +37,12 @@ abstract class Controller
         if ($link) {
             try
             {
-                $instance->{$relationship}()->attach([
-                    $id => ['created_at' => now(), 'updated_at' => now(),]
-                ]);
+                foreach ($ids as $id)
+                {
+                    $instance->{$relationship}()->attach([
+                        $id => ['created_at' => now(), 'updated_at' => now(),]
+                    ]);
+                }
             }
             catch (\Exception $e)
             {
@@ -47,7 +50,10 @@ abstract class Controller
             }
         }
         else {
-            $instance->{$relationship}()->detach($id);
+            foreach ($ids as $id)
+            {
+                $instance->{$relationship}()->detach($id);
+            }
         }
 
         return $this->getSuccess($instance, "Link on {$relationship} " . ($link ? 'created' : 'deleted') . " successfully", 200);

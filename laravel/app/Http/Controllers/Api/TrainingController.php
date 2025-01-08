@@ -156,14 +156,16 @@ class TrainingController extends Controller
     }
 
 
-    public function linkToExercise(string $trainingId, string $exerciseId)
+    public function linkToExercise(string $trainingId, string $exerciseIds)
     {
-        return $this->setLink(Training::class, $trainingId, 'exercises', $exerciseId, true);
+        $exerciseIds = array_map('intval', explode(',', $exerciseIds));
+        return $this->setLink(Training::class, $trainingId, 'exercises', $exerciseIds, true);
     }
 
 
-    public function unlinkExercise(string $trainingId, string $exerciseId)
+    public function unlinkExercise(string $trainingId, string $exerciseIds)
     {
-        return $this->setLink(Training::class, $trainingId, 'exercises', $exerciseId, false);
+        $exerciseIds = array_map('intval', explode(',', $exerciseIds));
+        return $this->setLink(Training::class, $trainingId, 'exercises', $exerciseIds, false);
     }
 }
