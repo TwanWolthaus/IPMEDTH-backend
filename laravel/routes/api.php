@@ -20,7 +20,8 @@ Route::resources([
     'trainings' =>          TrainingController::class,
 ], ['only' => ['index', 'show', 'store', 'update', 'destroy']]);
 
-Route::post('exercises/{exercise_id}/skills/{skill_id}', [ExerciseController::class, 'linkToSkill']);
+Route::post('exercises/{exerciseId}/linkToSkill/{skillIds}', [ExerciseController::class, 'linkToSkill']);
+
 Route::delete('exercises/{exercise_id}/skills/{skill_id}', [ExerciseController::class, 'unlinkSkill']);
 
 Route::post('trainings/{trainingId}/exercises/{exerciseId}', [TrainingController::class, 'linkToExercise']);

@@ -205,10 +205,28 @@ class ExerciseController extends Controller
 
 
     public function linkToSkill(string $exerciseId, string $skillIds)
-    {
+{
+    try {
+        $exercise = Exercise::findOrFail($exerciseId);  // Find the exercise by ID
+
+        // Convert the comma-separated list of skill IDs to an array of integers
         $skillIds = array_map('intval', explode(',', $skillIds));
-        return $this->setLink(Exercise::class, $exerciseId, 'skills', $skillIds, true);
+
+        // Attach skills to the exercise
+        $exercise->skills()->sync($skillIds);  // Use sync() to associate skills with exercise
+
+        // Return a success response
+        return response()->json([
+            'success' => true,
+            'message' => 'Skills linked to exercise successfully.'
+        ], 200);
+    } catch (\Exception $e) {
+        // Handle errors if any
+        return response()->json([
+            'error' => 'An error occurred while linking skills to the exercise.'
+        ], 500);
     }
+}
 
 
     public function unlinkSkill(string $exerciseId, string $skillIds)
