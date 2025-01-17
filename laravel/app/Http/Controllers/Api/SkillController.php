@@ -55,6 +55,8 @@ class SkillController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorize('create', Skill::class);
+
         $request = $request->all();
 
         if (isset($request['name'])) {
@@ -133,6 +135,8 @@ class SkillController extends Controller
 
     public function update(Request $request, string $id)
     {
+        $this->authorize('update', Skill::class);
+
         $request = $request->all();
 
         $validator = Validator::make($request, [
@@ -186,6 +190,8 @@ class SkillController extends Controller
 
     public function destroy(string $id)
     {
+        $this->authorize('delete', Skill::class);
+
         try
         {
             $skill = Skill::findOrFail($id);

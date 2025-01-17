@@ -68,4 +68,19 @@ class User extends Authenticatable
     {
         return $this->hasOne(Permission::class);
     }
+
+    public function isAdmin()
+    {
+        return $this->role === Role::Admin;
+    }
+
+    public function isTrainer()
+    {
+        return $this->role === Role::Trainer;
+    }
+
+    public function isGuest()
+    {
+        return $this->role === Role::Guest;
+    }
 }

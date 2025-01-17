@@ -31,6 +31,8 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorize('create', Category::class);
+
         $request = $request->all();
 
         $validator = Validator::make($request, [
@@ -105,6 +107,8 @@ class CategoryController extends Controller
 
     public function update(Request $request, string $id)
     {
+        $this->authorize('update', Category::class);
+
         $request = $request->all();
 
         $validator = Validator::make($request, [
@@ -142,6 +146,8 @@ class CategoryController extends Controller
 
     public function destroy(string $id)
     {
+        $this->authorize('delete', Category::class);
+
         try
         {
             $category = Category::findOrFail($id);

@@ -42,6 +42,8 @@ class TrainingController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorize('create', Training::class);
+
         $request = $request->all();
 
         if (isset($request['name'])) {
@@ -108,6 +110,8 @@ class TrainingController extends Controller
 
     public function update(Request $request, string $id)
     {
+        $this->authorize('update', Training::class);
+
         $request = $request->all();
 
         $validator = Validator::make($request, [
@@ -141,6 +145,8 @@ class TrainingController extends Controller
 
     public function destroy(string $id)
     {
+        $this->authorize('delete', Training::class);
+
         try
         {
             $training = Training::findOrFail($id);
@@ -158,6 +164,8 @@ class TrainingController extends Controller
 
     public function linkToExercise(string $trainingId, string $exerciseIds)
     {
+        $this->authorize('update', Training::class);
+
         $exerciseIds = array_map('intval', explode(',', $exerciseIds));
         return $this->setLink(Training::class, $trainingId, 'exercises', $exerciseIds, true);
     }
@@ -165,6 +173,8 @@ class TrainingController extends Controller
 
     public function unlinkExercise(string $trainingId, string $exerciseIds)
     {
+        $this->authorize('update', Training::class);
+
         $exerciseIds = array_map('intval', explode(',', $exerciseIds));
         return $this->setLink(Training::class, $trainingId, 'exercises', $exerciseIds, false);
     }

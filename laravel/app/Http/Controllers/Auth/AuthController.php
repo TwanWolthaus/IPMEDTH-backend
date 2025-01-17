@@ -45,7 +45,10 @@ class AuthController extends Controller
 
     public function deny(Request $request)
     {
-        return response()->json("Unauthorized", 401);
+        return response()->json([
+            'success' => false,
+            'message' => 'Unauthorized',
+        ], 401);
     }
 
 }

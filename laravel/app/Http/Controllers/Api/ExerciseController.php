@@ -217,6 +217,8 @@ class ExerciseController extends Controller
 
     public function linkToSkill(string $exerciseId, string $skillIds)
 {
+    $this->authorize('update', Exercise::class);
+
     try {
         $exercise = Exercise::findOrFail($exerciseId);  // Find the exercise by ID
 
@@ -250,6 +252,8 @@ class ExerciseController extends Controller
 
     public function linkToRequirements(Request $request, string $exerciseId)
 {
+    $this->authorize('update', Exercise::class);
+
     try {
         $exercise = Exercise::findOrFail($exerciseId);  // Find the exercise by ID
 
