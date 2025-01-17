@@ -9,12 +9,6 @@ use App\Policies\ExercisePolicy;
 
 class AppServiceProvider extends ServiceProvider
 {
-
-    protected $policies = [
-        Exercise::class => ExercisePolicy::class,
-    ];
-
-
     /**
      * Register any application services.
      */

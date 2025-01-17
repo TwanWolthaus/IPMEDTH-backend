@@ -4,6 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+use App\Enums\Role;
+
 return new class extends Migration
 {
 
@@ -12,7 +14,11 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
 
             $table->id();
-            $table->foreignId('permission_id')->nullable()->constrained('permissions')->onDelete('set null');
+            // $table->foreignId('permission_id')->nullable()->constrained('permissions')->onDelete('set null');
+
+            $table->string('role')->default(Role::Guest->value);
+            $table->string('password');
+            $table->string('remember_token', 100)->nullable()->after('password');
             $table->boolean('disabled');
             $table->char('first_name', 20);
             $table->char('middle_name', 10)->nullable();

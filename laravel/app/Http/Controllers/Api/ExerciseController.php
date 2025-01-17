@@ -17,10 +17,15 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 
+use Illuminate\Support\Facades\Auth;
+
+
+
 class ExerciseController extends Controller
 {
     public function index(Request $request)
     {
+
         $exercises = Exercise::query()
 
             ->when($request->has('filter.skills'), function ($query) use ($request) {
@@ -72,6 +77,8 @@ class ExerciseController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorize('create', Exercise::class);
+
         $request = $request->all();
 
         if (isset($request['name'])) {
@@ -149,6 +156,8 @@ class ExerciseController extends Controller
 
     public function update(Request $request, string $id)
     {
+        $this->authorize('update', Exercise::class);
+
         $request = $request->all();
 
         $validator = Validator::make($request, [
@@ -189,6 +198,8 @@ class ExerciseController extends Controller
 
     public function destroy(string $id)
     {
+        $this->authorize('delete', Exercise::class);
+
         try
         {
             $exercise = Exercise::findOrFail($id);
@@ -206,6 +217,8 @@ class ExerciseController extends Controller
 
     public function linkToSkill(string $exerciseId, string $skillIds)
     {
+        $this->authorize('update', Exercise::class);
+
         $skillIds = array_map('intval', explode(',', $skillIds));
         return $this->setLink(Exercise::class, $exerciseId, 'skills', $skillIds, true);
     }
@@ -213,6 +226,8 @@ class ExerciseController extends Controller
 
     public function unlinkSkill(string $exerciseId, string $skillIds)
     {
+        $this->authorize('update', Exercise::class);
+
         $skillIds = array_map('intval', explode(',', $skillIds));
         return $this->setLink(Exercise::class, $exerciseId, 'skills', $skillIds, false);
     }

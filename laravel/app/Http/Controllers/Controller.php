@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+
+
 abstract class Controller
 {
+    use AuthorizesRequests;
+
+
     protected function getError($e, string $message, int $code)
     {
         return response()->json([
