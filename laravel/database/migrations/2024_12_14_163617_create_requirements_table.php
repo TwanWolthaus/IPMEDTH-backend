@@ -16,8 +16,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('exercise_id')->constrained('exercises')->onDelete('cascade');
             $table->string('description', 255);
-            $table->tinyInteger('amount');
-            $table->boolean('is_optional');
+            $table->tinyInteger('amount')->nullable();
+            $table->boolean('is_optional')->nullable();
+
 
             $table->timestamps();
         });
