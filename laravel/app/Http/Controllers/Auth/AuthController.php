@@ -31,6 +31,7 @@ class AuthController extends Controller
             $token = $user->createToken('ZVL Trainingen')->plainTextToken;
 
             return response()->json([
+                'success' => true,
                 'message' => 'Login successful',
                 'token' => $token,
                 'user' => $user,
