@@ -117,6 +117,19 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $this->authorize('delete', User::class);
+
+        try
+        {
+            $user = User::findOrFail($id);
+        }
+        catch (\Exception $e)
+        {
+            return $this->getError($e, 'User not found', 404);
+        }
+
+        $user->delete();
+
+        return $this->getSuccess($training, 'User deleted successfully', 200);
     }
 }
