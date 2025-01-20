@@ -130,6 +130,6 @@ class UserController extends Controller
 
         $user->delete();
 
-        return $this->getSuccess($training, 'User deleted successfully', 200);
+        return $this->getSuccess($user, 'User deleted successfully', 200);
     }
 }
