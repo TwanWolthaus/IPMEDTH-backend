@@ -15,30 +15,31 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        // $request = $request;
 
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-        ]);
-
-        if (Auth::attempt([
-            'email' => $credentials['email'],
-            'password' => $credentials['password']
-        ], true)) {
-            $user = Auth::user();
-
-            $token = $user->createToken('ZVL Trainingen')->plainTextToken;
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Login successful',
-                'token' => $token,
-                'user' => $user,
+        try {
+            $credentials = $request->validate([
+                'email' => ['required', 'email'],
+                'password' => ['required'],
             ]);
 
-        } else {
-            dd('Login failed');
+            if (Auth::attempt([
+                'email' => $credentials['email'],
+                'password' => $credentials['password']
+            ], true)) {
+                $user = Auth::user();
+
+                $token = $user->createToken('ZVL Trainingen')->plainTextToken;
+
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Login successful',
+                    'token' => $token,
+                    'user' => $user,
+                ]);
+            }
+        }
+        catch (\Exception $e) {
+            return $this->getError($e, 'Login failed', 400);
         }
     }
 
